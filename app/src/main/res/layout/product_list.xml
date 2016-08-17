@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="120dp"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -22,6 +23,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="6dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="Product Name"
         android:id="@+id/pro_name"
@@ -31,6 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="6dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="Supplied by: Generic Supplier"
         android:id="@+id/pro_supplier"
@@ -40,9 +43,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="6dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:text="Amount: 10"
-        android:id="@+id/textView"
+        tools:text="Quantity: 10"
+        android:id="@+id/pro_quantity"
         android:layout_alignBottom="@+id/pro_image"
         android:layout_alignStart="@+id/pro_supplier" />
 
@@ -51,7 +55,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="$ 9.99"
-        android:id="@+id/textView2"
-        android:layout_alignBottom="@+id/textView"
+        android:id="@+id/pro_price"
+        android:layout_alignBottom="@+id/pro_quantity"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
