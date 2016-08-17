@@ -43,11 +43,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         Product currentProduct = mProductList.get(position);
 
-        holder.proImage.setImageBitmap(currentProduct.getImage());
+        holder.proImage.setImageResource(currentProduct.getImageId());
         holder.proName.setText(currentProduct.getName());
-        holder.proSupplier.setText(currentProduct.getSupplier());
-        holder.proQuantity.setText(String.valueOf(currentProduct.getQuantity()));
-        holder.proPrice.setText(String.valueOf(currentProduct.getPrice()));
+        holder.proSupplier.setText(mContext.getString(R.string.supplied_by) + currentProduct.getSupplier());
+        holder.proQuantity.setText(mContext.getString(R.string.quantity) + String.valueOf(currentProduct.getQuantity()));
+        holder.proPrice.setText("$" + String.valueOf(currentProduct.getPrice()));
 
     }
 

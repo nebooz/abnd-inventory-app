@@ -1,7 +1,5 @@
 package com.abnd.mdiaz.inventoryapp;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by neboo on 17-Aug-16.
  */
@@ -11,14 +9,14 @@ public class Product {
     private float mPrice;
     private int mQuantity;
     private String mSupplier;
-    private Bitmap mImage;
+    private int mImageId;
 
-    public Product(String name, float price, int quantity, String supplier, Bitmap image) {
+    public Product(String name, float price, int quantity, String supplier, int imageId) {
         mName = name;
         mPrice = price;
         mQuantity = quantity;
         mSupplier = supplier;
-        mImage = image;
+        mImageId = imageId;
     }
 
     public String getName(){
@@ -53,11 +51,11 @@ public class Product {
         mSupplier = supplier;
     }
 
-    public Bitmap getImage() {
-        return mImage;
+    public int getImageId() {
+        return mImageId;
     }
 
-    public void setImage(Bitmap image) {
-        mImage = image;
+    public void setImageId(int imageId) {
+        mImageId = imageId;
     }
 }
