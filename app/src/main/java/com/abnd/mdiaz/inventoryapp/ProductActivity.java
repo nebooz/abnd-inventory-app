@@ -19,8 +19,17 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        mProductList.add(new Product("Product A", 9.99f, 10, "Supplier 1", R.drawable.bulbasaur));
-        mProductList.add(new Product("Product B", 19.99f, 20, "Supplier 2", R.drawable.charmander));
+        DatabaseHelper dbHelp = new DatabaseHelper(this);
+
+        //Funny how the database was not regenerated everytime...
+        dbHelp.deleteAllData();
+
+        dbHelp.addProduct(1, "Bulbasaur", 9.99f, 10, "Supplier 1", R.drawable.bulbasaur);
+        dbHelp.addProduct(2, "Charmander", 19.99f, 20, "Supplier 2", R.drawable.charmander);
+        dbHelp.addProduct(3, "Jigglypuff", 29.99f, 20, "Supplier 3", R.drawable.jigglypuff);
+        dbHelp.addProduct(4, "Pikachu", 69.99f, 20, "Supplier 4", R.drawable.pikachu);
+
+        mProductList = dbHelp.getAllProducts();
 
         // Initialize recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
