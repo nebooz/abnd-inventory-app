@@ -52,12 +52,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         mContext.deleteDatabase(DATABASE_NAME);
     }
 
-    public boolean addProduct(int id, String name, float price, int quantity, String supplier, int imageId) {
+    public int productCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT _id FROM " + DatabaseContract.Products.TABLE_NAME, null).getCount();
+    }
+
+    //public boolean addProduct(int id, String name, float price, int quantity, String supplier, int imageId) {
+    public boolean addProduct(String name, float price, int quantity, String supplier, int imageId) {
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(DatabaseContract.Products._ID, id);
+        //values.put(DatabaseContract.Products._ID, id);
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_NAME, name);
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_PRICE, price);
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_QUANTITY, quantity);

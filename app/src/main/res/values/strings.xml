@@ -2,4 +2,10 @@
     <string name="app_name">Inventory App</string>
     <string name="quantity">"Quantity: "</string>
     <string name="supplied_by">"Supplied by: "</string>
+    <string name="add_product">Add Product</string>
+    <string name="add_new_product_header">Add A New Product</string>
+    <string name="hint_product_name">Product Name</string>
+    <string name="hint_product_price">Price</string>
+    <string name="hint_product_initial_quantity">Initial Quantity</string>
+    <string name="hint_product_supplier">Supplier</string>
 </resources>

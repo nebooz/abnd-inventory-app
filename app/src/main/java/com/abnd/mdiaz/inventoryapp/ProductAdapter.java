@@ -26,6 +26,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     //Not sure if this one will work on a Recycler View
     public void setProductList(List<Product> productList) {
+        mProductList.clear();
         mProductList.addAll(productList);
         notifyDataSetChanged();
     }
