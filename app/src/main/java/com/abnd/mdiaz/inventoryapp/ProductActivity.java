@@ -51,9 +51,13 @@ public class ProductActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 1){
-            updateProductCount();
-            mAdapter.setProductList(dbHelp.getAllProducts());
+        switch (requestCode){
+            case 1:
+                updateProductCount();
+                mAdapter.setProductList(dbHelp.getAllProducts());
+            case 2:
+                updateProductCount();
+                mAdapter.setProductList(dbHelp.getAllProducts());
         }
     }
 

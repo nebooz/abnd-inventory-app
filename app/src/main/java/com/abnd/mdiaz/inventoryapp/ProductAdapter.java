@@ -1,6 +1,8 @@
 package com.abnd.mdiaz.inventoryapp;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +59,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return (null != mProductList ? mProductList.size() : 0);
     }
 
-    public class ProductViewHolder extends RecyclerView.ViewHolder {
+    public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected ImageView proImage;
         protected TextView proName;
         protected TextView proSupplier;
@@ -71,6 +73,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             proSupplier = (TextView) view.findViewById(R.id.pro_supplier);
             proQuantity = (TextView) view.findViewById(R.id.pro_quantity);
             proPrice = (TextView) view.findViewById(R.id.pro_price);
+            view.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            openDetailView(this.getLayoutPosition());
+        }
+    }
+
+    private void openDetailView(int position){
+        Intent intent = new Intent(mContext, ProductDetail.class);
+        Product product = mProductList.get(position);
+        intent.putExtra("product", product);
+        ((Activity) mContext).startActivityForResult(intent, 2);
     }
 }

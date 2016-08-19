@@ -1,9 +1,11 @@
 package com.abnd.mdiaz.inventoryapp;
 
+import java.io.Serializable;
+
 /**
  * Created by neboo on 17-Aug-16.
  */
-public class Product {
+public class Product implements Serializable{
 
     private String mName;
     private float mPrice;
