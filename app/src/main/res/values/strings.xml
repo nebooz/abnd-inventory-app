@@ -8,4 +8,15 @@
     <string name="hint_product_price">Price</string>
     <string name="hint_product_initial_quantity">Initial Quantity</string>
     <string name="hint_product_supplier">Supplier</string>
+    <string name="delete_product">Delete Product</string>
+    <string name="order_more">Order More</string>
+    <string name="email_address">orders@pokemonfactory.com</string>
+    <string name="request_for_a_new">"Request for a new "</string>
+    <string name="shipment">" shipment"</string>
+    <string name="hello">Hello,\n\n</string>
+    <string name="request_main">"We would like to request a new shipment of "</string>
+    <string name="units">" units by "</string>
+    <string name="unit_price">Price: $</string>
+    <string name="sell_item">Sell Item</string>
+    <string name="empty_list_text">There are no products on the database. To add a product, click on the \"Add Product\" button on top.</string>
 </resources>

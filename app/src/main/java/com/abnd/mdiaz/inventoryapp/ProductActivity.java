@@ -18,6 +18,7 @@ public class ProductActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private ProductAdapter mAdapter;
     private TextView productCountTextView;
+    TextView emptyListTextView;
     private int productCount;
 
     @Override
@@ -27,18 +28,21 @@ public class ProductActivity extends AppCompatActivity {
 
         dbHelp = new DatabaseHelper(this);
 
-        productCountTextView = (TextView) findViewById(R.id.pro_count);
-        updateProductCount();
-
         //Funny how the database was not regenerated everytime... delete everything! (while testing)
-        dbHelp.deleteAllData();
+        //dbHelp.deleteAllData();
 
-        dbHelp.addProduct("Bulbasaur", 9.99f, 10, "Supplier 1", R.drawable.bulbasaur);
-        dbHelp.addProduct("Charmander", 19.99f, 20, "Supplier 2", R.drawable.charmander);
-        dbHelp.addProduct("Jigglypuff", 29.99f, 20, "Supplier 3", R.drawable.jigglypuff);
-        dbHelp.addProduct("Pikachu", 69.99f, 20, "Supplier 4", R.drawable.pikachu);
+        //dbHelp.addProduct(1, "Bulbasaur", 9.99f, 10, "Supplier 1", R.drawable.bulbasaur);
+        //dbHelp.addProduct(2, "Charmander", 19.99f, 20, "Supplier 2", R.drawable.charmander);
+        //dbHelp.addProduct(3, "Jigglypuff", 29.99f, 20, "Supplier 3", R.drawable.jigglypuff);
+        //dbHelp.addProduct(4, "Pikachu", 69.99f, 20, "Supplier 4", R.drawable.pikachu);
 
         mProductList = dbHelp.getAllProducts();
+
+        emptyListTextView = (TextView) findViewById(R.id.empty_list_text_view);
+        checkEmptyList();
+
+        productCountTextView = (TextView) findViewById(R.id.pro_count);
+        updateProductCount();
 
         // Initialize recycler view
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -51,18 +55,30 @@ public class ProductActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
-                updateProductCount();
                 mAdapter.setProductList(dbHelp.getAllProducts());
+                checkEmptyList();
+                updateProductCount();
             case 2:
-                updateProductCount();
                 mAdapter.setProductList(dbHelp.getAllProducts());
+                checkEmptyList();
+                updateProductCount();
         }
     }
 
-    public void updateProductCount(){
-        productCountTextView.setText("Products: " + Integer.toString(dbHelp.productCount()));
+    public void updateProductCount() {
+        productCountTextView.setText("Products: " + Integer.toString(mProductList.size()));
+    }
+
+    public void checkEmptyList() {
+        TextView emptyListTextView = (TextView) findViewById(R.id.empty_list_text_view);
+        if (mProductList.size() > 0){
+            emptyListTextView.setVisibility(View.GONE);
+        }
+        else {
+            emptyListTextView.setVisibility(View.VISIBLE);
+        }
     }
 
     public void openNewProductActivity(View view) {

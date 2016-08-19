@@ -13,49 +13,73 @@
         android:id="@+id/dt_pro_image"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_marginRight="8dp"
-        tools:src="@mipmap/ic_launcher"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp" />
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="36dp"
+        tools:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/dt_pro_name"
+        android:paddingTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Product Name"
         android:layout_below="@+id/dt_pro_image"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="Product Name" />
 
     <TextView
         android:id="@+id/dt_pro_supplier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/dt_pro_name"
+        android:layout_centerHorizontal="true"
         android:paddingTop="8dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="Supplied by: Generic Supplier"
-        android:layout_below="@+id/dt_pro_name"
-        android:layout_centerHorizontal="true" />
+        tools:text="Supplied by: Generic Supplier" />
 
     <TextView
         android:id="@+id/dt_pro_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/dt_pro_supplier"
+        android:layout_centerHorizontal="true"
         android:paddingTop="16dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:text="Quantity: 10"
-        android:layout_below="@+id/dt_pro_supplier"
-        android:layout_centerHorizontal="true" />
+        tools:text="Quantity: 10" />
 
     <TextView
         android:id="@+id/dt_pro_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:paddingTop="64dp"
-        tools:text="$ 9.99"
         android:layout_below="@+id/dt_pro_quantity"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:paddingTop="64dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="Price: $ 9.99" />
+
+    <Button
+        android:id="@+id/dt_btn_order_more"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/dt_pro_price"
+        android:layout_centerHorizontal="true"
+        android:onClick="orderMore"
+        android:layout_marginTop="32dp"
+        android:text="@string/order_more" />
+
+    <Button
+        android:id="@+id/dt_btn_delete_product"
+        android:background="#F44336"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/dt_btn_order_more"
+        android:layout_centerHorizontal="true"
+        android:onClick="deleteProduct"
+        android:text="@string/delete_product" />
 
 </RelativeLayout>

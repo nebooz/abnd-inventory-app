@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +52,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.proName.setText(currentProduct.getName());
         holder.proSupplier.setText(mContext.getString(R.string.supplied_by) + currentProduct.getSupplier());
         holder.proQuantity.setText(mContext.getString(R.string.quantity) + String.valueOf(currentProduct.getQuantity()));
-        holder.proPrice.setText("$" + String.valueOf(currentProduct.getPrice()));
+        holder.proPrice.setText(mContext.getString(R.string.unit_price) + String.valueOf(currentProduct.getPrice()));
 
     }
 
@@ -65,20 +67,45 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         protected TextView proSupplier;
         protected TextView proQuantity;
         protected TextView proPrice;
+        protected Button sellButton;
 
         public ProductViewHolder(View view) {
             super(view);
+            sellButton = (Button) view.findViewById(R.id.sell_button);
             proImage = (ImageView) view.findViewById(R.id.pro_image);
             proName = (TextView) view.findViewById(R.id.pro_name);
             proSupplier = (TextView) view.findViewById(R.id.pro_supplier);
             proQuantity = (TextView) view.findViewById(R.id.pro_quantity);
             proPrice = (TextView) view.findViewById(R.id.pro_price);
+            sellButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    productSale(getLayoutPosition());
+                }
+            });
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            openDetailView(this.getLayoutPosition());
+            openDetailView(getLayoutPosition());
+        }
+    }
+
+    private void productSale(int position) {
+        Product product = mProductList.get(position);
+        int quantity = product.getQuantity();
+
+        if (quantity > 0) {
+            DatabaseHelper dbHelp = new DatabaseHelper(mContext);
+            dbHelp.updateQuantity(product.getId(), quantity - 1);
+
+            mProductList.clear();
+            mProductList.addAll(dbHelp.getAllProducts());
+            notifyDataSetChanged();
+        }
+        else {
+            Toast.makeText(mContext, "There are no items left to sell.", Toast.LENGTH_SHORT).show();
         }
     }
 

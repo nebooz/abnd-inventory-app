@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.abnd.mdiaz.inventoryapp.ProductActivity">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/pro_options"
-        android:scrollbars="vertical" />
 
     <RelativeLayout
         android:id="@+id/pro_options"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:background="#4E4B4F"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
@@ -28,8 +19,8 @@
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
-            android:onClick="openNewProductActivity"
             android:layout_centerVertical="true"
+            android:onClick="openNewProductActivity"
             android:text="@string/add_product" />
 
         <TextView
@@ -38,10 +29,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:textSize="20sp"
             android:textColor="#FFFFFF"
+            android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Products: 6" />
+
     </RelativeLayout>
 
-</RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/empty_list_text_view"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/empty_list_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</LinearLayout>

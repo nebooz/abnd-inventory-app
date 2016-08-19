@@ -58,12 +58,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //public boolean addProduct(int id, String name, float price, int quantity, String supplier, int imageId) {
-    public boolean addProduct(String name, float price, int quantity, String supplier, int imageId) {
+    public boolean addProduct(int id, String name, float price, int quantity, String supplier, int imageId) {
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        //values.put(DatabaseContract.Products._ID, id);
+        if (id != -1) {
+            values.put(DatabaseContract.Products._ID, id);
+        }
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_NAME, name);
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_PRICE, price);
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_QUANTITY, quantity);
@@ -90,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor selectAll = db.rawQuery("SELECT * FROM " + DatabaseContract.Products.TABLE_NAME, null);
         while (selectAll.moveToNext()) {
 
+            int productId = selectAll.getInt(selectAll.getColumnIndex("_id"));
             String productName = selectAll.getString(selectAll.getColumnIndex("name"));
             float productPrice = selectAll.getFloat(selectAll.getColumnIndex("price"));
             int productQuantity = selectAll.getInt(selectAll.getColumnIndex("quantity"));
@@ -102,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 productImageId = selectAll.getInt(selectAll.getColumnIndex("imageId"));
             }
 
-            products.add(new Product(productName, productPrice, productQuantity, productSupplier, productImageId));
+            products.add(new Product(productId, productName, productPrice, productQuantity, productSupplier, productImageId));
 
         }
 

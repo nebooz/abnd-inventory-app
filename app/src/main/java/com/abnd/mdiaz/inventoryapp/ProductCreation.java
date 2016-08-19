@@ -22,7 +22,7 @@ public class ProductCreation extends AppCompatActivity {
         EditText productQuantity = (EditText) findViewById(R.id.edit_pro_quantity);
         EditText productSupplier = (EditText) findViewById(R.id.edit_pro_supplier);
 
-        dbHelp.addProduct(productName.getText().toString(),
+        dbHelp.addProduct(-1, productName.getText().toString(),
                 Float.valueOf(productPrice.getText().toString()),
                 Integer.valueOf(productQuantity.getText().toString()),
                 productSupplier.getText().toString(),

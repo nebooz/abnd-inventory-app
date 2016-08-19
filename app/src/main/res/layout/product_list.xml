@@ -41,17 +41,26 @@
         android:id="@+id/pro_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/pro_image"
-        android:layout_alignStart="@+id/pro_supplier"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:text="Quantity: 10" />
+        tools:text="Quantity: 10"
+        android:paddingTop="8dp"
+        android:layout_below="@+id/pro_supplier"
+        android:layout_toEndOf="@+id/pro_image" />
 
     <TextView
         android:id="@+id/pro_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/pro_quantity"
-        android:layout_alignParentEnd="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="$ 9.99" />
+        tools:text="Price: $9.99"
+        android:layout_below="@+id/pro_quantity"
+        android:layout_alignStart="@+id/pro_quantity" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sell_item"
+        android:id="@+id/sell_button"
+        android:layout_alignBottom="@+id/pro_price"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
