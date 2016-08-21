@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,12 +22,24 @@ public class ProductCreation extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     String mCurrentPhotoPath;
 
+    private EditText productNameView;
+    private EditText productPriceView;
+    private EditText productQuantityView;
+    private EditText productSupplierView;
     private ImageView productImage;
+    private boolean imageAdded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_creation);
+
+        imageAdded = false;
+
+        productNameView = (EditText) findViewById(R.id.edit_pro_name);
+        productPriceView = (EditText) findViewById(R.id.edit_pro_price);
+        productQuantityView = (EditText) findViewById(R.id.edit_pro_quantity);
+        productSupplierView = (EditText) findViewById(R.id.edit_pro_supplier);
 
         productImage = (ImageView) findViewById(R.id.add_image);
     }
@@ -35,6 +48,7 @@ public class ProductCreation extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
+            imageAdded = true;
             productImage.setImageBitmap(ImageTools.imageProcess(mCurrentPhotoPath));
 
         }
@@ -42,27 +56,27 @@ public class ProductCreation extends AppCompatActivity {
 
     public void addProduct(View view) {
 
-        DatabaseHelper dbHelp = new DatabaseHelper(this);
-
-        EditText productNameView = (EditText) findViewById(R.id.edit_pro_name);
-        EditText productPriceView = (EditText) findViewById(R.id.edit_pro_price);
-        EditText productQuantityView = (EditText) findViewById(R.id.edit_pro_quantity);
-        EditText productSupplierView = (EditText) findViewById(R.id.edit_pro_supplier);
-
         String productName = productNameView.getText().toString();
-        float productPrice = Float.valueOf(productPriceView.getText().toString());
-        int productQuantity = Integer.valueOf(productQuantityView.getText().toString());
+        String productPrice = productPriceView.getText().toString();
+        String productQuantity = productQuantityView.getText().toString();
         String productSupplier = productSupplierView.getText().toString();
 
-        dbHelp.addProduct(
-                -1,
-                productName,
-                productPrice,
-                productQuantity,
-                productSupplier,
-                mCurrentPhotoPath);
+        if (productName.isEmpty() || productPrice.isEmpty() || productQuantity.isEmpty() || productSupplier.isEmpty() || !imageAdded) {
+            Toast.makeText(this, R.string.empty_warning, Toast.LENGTH_LONG).show();
+        } else {
+            DatabaseHelper dbHelp = new DatabaseHelper(this);
 
-        this.finish();
+            dbHelp.addProduct(
+                    -1,
+                    productName,
+                    Float.valueOf(productPrice),
+                    Integer.valueOf(productQuantity),
+                    productSupplier,
+                    mCurrentPhotoPath);
+
+            this.finish();
+        }
+
     }
 
     public void addImage(View view) {

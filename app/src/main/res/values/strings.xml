@@ -19,4 +19,6 @@
     <string name="unit_price">Price: $</string>
     <string name="sell_item">Sell Item</string>
     <string name="empty_list_text">There are no products on the database. To add a product, click on the \"Add Product\" button on top.</string>
+    <string name="empty_warning">There are empty fields. Please input something in all fields to continue.</string>
+    <string name="back">Back</string>
 </resources>

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static Context mContext;
-
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "Products.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String REAL_TYPE = " REAL";
     private static final String INT_TYPE = " INTEGER";
@@ -25,12 +25,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     DatabaseContract.Products.COLUMN_NAME_PRODUCT_QUANTITY + INT_TYPE + COMMA_SEP +
                     DatabaseContract.Products.COLUMN_NAME_PRODUCT_SUPPLIER + TEXT_TYPE + COMMA_SEP +
                     DatabaseContract.Products.COLUMN_NAME_PRODUCT_IMAGEURI + TEXT_TYPE + " )";
-
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + DatabaseContract.Products.TABLE_NAME;
-
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Products.db";
+    private static Context mContext;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -54,7 +51,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int productCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT _id FROM " + DatabaseContract.Products.TABLE_NAME, null).getCount();
+        int count = db.rawQuery("SELECT _id FROM " + DatabaseContract.Products.TABLE_NAME, null).getCount();
+        db.close();
+        return count;
     }
 
     //public boolean addProduct(int id, String name, float price, int quantity, String supplier, int imageId) {
@@ -77,6 +76,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseContract.Products.TABLE_NAME,
                 DatabaseContract.Products.COLUMN_NAME_NULLABLE,
                 values);
+
+        db.close();
 
         return newRowId != -1;
     }
@@ -103,6 +104,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         }
 
+        db.close();
+
         return products;
     }
 
@@ -117,23 +120,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.update(DatabaseContract.Products.TABLE_NAME, values, selection, selectionArgs);
 
+        db.close();
+
         return true;
     }
 
-    public int deleteProduct(int id) {
+    public void deleteProduct(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String selection = DatabaseContract.Products._ID + " LIKE ?";
 
         String[] selectionArgs = {String.valueOf(id)};
 
-        return db.delete(DatabaseContract.Products.TABLE_NAME, selection, selectionArgs);
+        db.delete(DatabaseContract.Products.TABLE_NAME, selection, selectionArgs);
+
+        db.close();
     }
 
-    public int deleteAllData() {
+    public void deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        return db.delete(DatabaseContract.Products.TABLE_NAME, null, null);
+        db.delete(DatabaseContract.Products.TABLE_NAME, null, null);
+
+        db.close();
     }
 }
 

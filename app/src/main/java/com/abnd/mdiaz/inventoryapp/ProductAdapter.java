@@ -72,6 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             mProductList.clear();
             mProductList.addAll(dbHelp.getAllProducts());
             notifyDataSetChanged();
+
         } else {
             Toast.makeText(mContext, "There are no items left to sell.", Toast.LENGTH_SHORT).show();
         }

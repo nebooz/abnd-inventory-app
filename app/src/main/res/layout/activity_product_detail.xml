@@ -9,6 +9,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.abnd.mdiaz.inventoryapp.ProductDetail">
 
+    <Button
+        android:id="@+id/btn_back_to_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:onClick="backToList"
+        android:text="@string/back" />
+
     <ImageView
         android:id="@+id/dt_pro_image"
         android:layout_width="160dp"
@@ -21,11 +30,11 @@
 
     <TextView
         android:id="@+id/dt_pro_name"
-        android:paddingTop="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dt_pro_image"
         android:layout_centerHorizontal="true"
+        android:paddingTop="8dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="Product Name" />
 
@@ -65,21 +74,23 @@
         android:layout_height="50dp"
         android:layout_below="@+id/dt_pro_price"
         android:layout_centerHorizontal="true"
-        android:onClick="orderMore"
         android:layout_marginTop="32dp"
+        android:onClick="orderMore"
         android:text="@string/order_more" />
 
     <Button
         android:id="@+id/dt_btn_delete_product"
-        android:background="#F44336"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
         android:layout_below="@+id/dt_btn_order_more"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="#F44336"
         android:onClick="deleteProduct"
-        android:text="@string/delete_product" />
+        android:text="@string/delete_product"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+
 
 </RelativeLayout>

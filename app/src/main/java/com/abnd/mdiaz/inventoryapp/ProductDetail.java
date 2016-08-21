@@ -55,4 +55,8 @@ public class ProductDetail extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public void backToList(View view) {
+        this.finish();
+    }
 }
