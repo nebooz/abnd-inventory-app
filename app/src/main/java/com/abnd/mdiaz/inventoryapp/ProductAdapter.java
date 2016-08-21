@@ -3,6 +3,8 @@ package com.abnd.mdiaz.inventoryapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +51,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         Product currentProduct = mProductList.get(position);
 
-        holder.proImage.setImageBitmap(ImageTools.imageProcess(currentProduct.getImageUri()));
+        /*
+        This is way better, and the lost frames warnings are gone. Although, I still think that
+        the whole image is getting reloaded every time the Sell button is pressed, only difference
+        is that I don't see it slowing down the whole app.
+        */
+        loadBitmap(currentProduct.getImageUri(), holder.proImage);
+
         holder.proName.setText(currentProduct.getName());
         holder.proSupplier.setText(mContext.getString(R.string.supplied_by) + currentProduct.getSupplier());
         holder.proQuantity.setText(mContext.getString(R.string.quantity) + String.valueOf(currentProduct.getQuantity()));
@@ -113,6 +122,39 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         @Override
         public void onClick(View view) {
             openDetailView(getLayoutPosition());
+        }
+    }
+
+    public void loadBitmap(String imagePath, ImageView imageView) {
+        BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+        task.execute(imagePath);
+    }
+
+    class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+        private String imagePath;
+
+        public BitmapWorkerTask(ImageView imageView) {
+            // Use a WeakReference to ensure the ImageView can be garbage collected
+            imageViewReference = new WeakReference<ImageView>(imageView);
+        }
+
+        // Decode image in background.
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            imagePath = params[0];
+            return ImageTools.imageProcess(imagePath);
+        }
+
+        // Once complete, see if ImageView is still around and set bitmap.
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (imageViewReference != null && bitmap != null) {
+                final ImageView imageView = imageViewReference.get();
+                if (imageView != null) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
         }
     }
 
