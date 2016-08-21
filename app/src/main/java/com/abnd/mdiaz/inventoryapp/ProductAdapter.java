@@ -48,7 +48,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         Product currentProduct = mProductList.get(position);
 
-        holder.proImage.setImageResource(currentProduct.getImageId());
+        holder.proImage.setImageBitmap(ImageTools.imageProcess(currentProduct.getImageUri()));
         holder.proName.setText(currentProduct.getName());
         holder.proSupplier.setText(mContext.getString(R.string.supplied_by) + currentProduct.getSupplier());
         holder.proQuantity.setText(mContext.getString(R.string.quantity) + String.valueOf(currentProduct.getQuantity()));
@@ -59,6 +59,29 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public int getItemCount() {
         return (null != mProductList ? mProductList.size() : 0);
+    }
+
+    private void productSale(int position) {
+        Product product = mProductList.get(position);
+        int quantity = product.getQuantity();
+
+        if (quantity > 0) {
+            DatabaseHelper dbHelp = new DatabaseHelper(mContext);
+            dbHelp.updateQuantity(product.getId(), quantity - 1);
+
+            mProductList.clear();
+            mProductList.addAll(dbHelp.getAllProducts());
+            notifyDataSetChanged();
+        } else {
+            Toast.makeText(mContext, "There are no items left to sell.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openDetailView(int position) {
+        Intent intent = new Intent(mContext, ProductDetail.class);
+        Product product = mProductList.get(position);
+        intent.putExtra("product", product);
+        ((Activity) mContext).startActivityForResult(intent, 2);
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -92,27 +115,4 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
     }
 
-    private void productSale(int position) {
-        Product product = mProductList.get(position);
-        int quantity = product.getQuantity();
-
-        if (quantity > 0) {
-            DatabaseHelper dbHelp = new DatabaseHelper(mContext);
-            dbHelp.updateQuantity(product.getId(), quantity - 1);
-
-            mProductList.clear();
-            mProductList.addAll(dbHelp.getAllProducts());
-            notifyDataSetChanged();
-        }
-        else {
-            Toast.makeText(mContext, "There are no items left to sell.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void openDetailView(int position){
-        Intent intent = new Intent(mContext, ProductDetail.class);
-        Product product = mProductList.get(position);
-        intent.putExtra("product", product);
-        ((Activity) mContext).startActivityForResult(intent, 2);
-    }
 }

@@ -16,7 +16,6 @@
         android:paddingRight="16dp">
 
         <TextView
-            android:id="@+id/pro_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -34,6 +33,16 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/add_image"
+            android:layout_width="128dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="128dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="8dp"
+            android:onClick="addImage"
+            android:src="@drawable/add_image" />
 
         <EditText
             android:id="@+id/edit_pro_name"

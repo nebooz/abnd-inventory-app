@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     DatabaseContract.Products.COLUMN_NAME_PRODUCT_PRICE + REAL_TYPE + COMMA_SEP +
                     DatabaseContract.Products.COLUMN_NAME_PRODUCT_QUANTITY + INT_TYPE + COMMA_SEP +
                     DatabaseContract.Products.COLUMN_NAME_PRODUCT_SUPPLIER + TEXT_TYPE + COMMA_SEP +
-                    DatabaseContract.Products.COLUMN_NAME_PRODUCT_IMAGEID + INT_TYPE + " )";
+                    DatabaseContract.Products.COLUMN_NAME_PRODUCT_IMAGEURI + TEXT_TYPE + " )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + DatabaseContract.Products.TABLE_NAME;
@@ -58,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //public boolean addProduct(int id, String name, float price, int quantity, String supplier, int imageId) {
-    public boolean addProduct(int id, String name, float price, int quantity, String supplier, int imageId) {
+    public boolean addProduct(int id, String name, float price, int quantity, String supplier, String imageUri) {
         // Gets the data repository in write mode
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -70,7 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_PRICE, price);
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_QUANTITY, quantity);
         values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_SUPPLIER, supplier);
-        values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_IMAGEID, imageId);
+        values.put(DatabaseContract.Products.COLUMN_NAME_PRODUCT_IMAGEURI, imageUri);
 
         long newRowId;
         newRowId = db.insert(
@@ -97,15 +97,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             float productPrice = selectAll.getFloat(selectAll.getColumnIndex("price"));
             int productQuantity = selectAll.getInt(selectAll.getColumnIndex("quantity"));
             String productSupplier = selectAll.getString(selectAll.getColumnIndex("supplier"));
+            String productImageUri = selectAll.getString(selectAll.getColumnIndex("imageuri"));
 
-            int productImageId;
-            if (selectAll.isNull(selectAll.getColumnIndex("imageId"))) {
-                productImageId = R.drawable.squirtle;
-            } else {
-                productImageId = selectAll.getInt(selectAll.getColumnIndex("imageId"));
-            }
-
-            products.add(new Product(productId, productName, productPrice, productQuantity, productSupplier, productImageId));
+            products.add(new Product(productId, productName, productPrice, productQuantity, productSupplier, productImageUri));
 
         }
 
@@ -136,7 +130,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete(DatabaseContract.Products.TABLE_NAME, selection, selectionArgs);
     }
 
-    //To meet the rubric reqs.
     public int deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
 

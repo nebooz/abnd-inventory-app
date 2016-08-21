@@ -19,6 +19,6 @@ public final class DatabaseContract {
         public static final String COLUMN_NAME_PRODUCT_PRICE = "price";
         public static final String COLUMN_NAME_PRODUCT_QUANTITY = "quantity";
         public static final String COLUMN_NAME_PRODUCT_SUPPLIER = "supplier";
-        public static final String COLUMN_NAME_PRODUCT_IMAGEID = "imageId";
+        public static final String COLUMN_NAME_PRODUCT_IMAGEURI = "imageuri";
     }
 }

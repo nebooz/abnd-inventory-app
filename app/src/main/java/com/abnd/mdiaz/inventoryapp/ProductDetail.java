@@ -25,7 +25,7 @@ public class ProductDetail extends AppCompatActivity {
         TextView detailProductQuantity = (TextView) findViewById(R.id.dt_pro_quantity);
         TextView detailProductSupplier = (TextView) findViewById(R.id.dt_pro_supplier);
 
-        detailProductImage.setImageResource(currentProduct.getImageId());
+        detailProductImage.setImageBitmap(ImageTools.imageProcess(currentProduct.getImageUri()));
         detailProductName.setText(currentProduct.getName());
         detailProductSupplier.setText(this.getString(R.string.supplied_by) + currentProduct.getSupplier());
         detailProductQuantity.setText(this.getString(R.string.quantity) + String.valueOf(currentProduct.getQuantity()));
@@ -43,7 +43,7 @@ public class ProductDetail extends AppCompatActivity {
         String[] emails = new String[]{getString(R.string.email_address)};
         String subject = getString(R.string.request_for_a_new) + currentProduct.getName()
                 + getString(R.string.shipment);
-        String text =  getString(R.string.hello) + getString(R.string.request_main)
+        String text = getString(R.string.hello) + getString(R.string.request_main)
                 + currentProduct.getName() + getString(R.string.units) + currentProduct.getSupplier() + ".";
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);

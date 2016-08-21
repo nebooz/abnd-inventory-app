@@ -12,24 +12,24 @@ public class Product implements Serializable{
     private float mPrice;
     private int mQuantity;
     private String mSupplier;
-    private int mImageId;
+    private String mImageUri;
 
-    public Product(String name, float price, int quantity, String supplier, int imageId) {
+    public Product(String name, float price, int quantity, String supplier, String imageUri) {
         mId = 0;
         mName = name;
         mPrice = price;
         mQuantity = quantity;
         mSupplier = supplier;
-        mImageId = imageId;
+        mImageUri = imageUri;
     }
 
-    public Product(int id, String name, float price, int quantity, String supplier, int imageId) {
+    public Product(int id, String name, float price, int quantity, String supplier, String imageUri) {
         mId = id;
         mName = name;
         mPrice = price;
         mQuantity = quantity;
         mSupplier = supplier;
-        mImageId = imageId;
+        mImageUri = imageUri;
     }
 
     public int getId() {
@@ -72,11 +72,11 @@ public class Product implements Serializable{
         mSupplier = supplier;
     }
 
-    public int getImageId() {
-        return mImageId;
+    public String getImageUri() {
+        return mImageUri;
     }
 
-    public void setImageId(int imageId) {
-        mImageId = imageId;
+    public void setImageId(String imageUri) {
+        mImageUri = imageUri;
     }
 }

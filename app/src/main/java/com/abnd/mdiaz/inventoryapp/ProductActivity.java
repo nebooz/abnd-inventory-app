@@ -21,12 +21,16 @@ public class ProductActivity extends AppCompatActivity {
     TextView emptyListTextView;
     private int productCount;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
         dbHelp = new DatabaseHelper(this);
+
+        dbHelp.deleteDatabase();
 
         //Funny how the database was not regenerated everytime... delete everything! (while testing)
         //dbHelp.deleteAllData();
@@ -91,4 +95,5 @@ public class ProductActivity extends AppCompatActivity {
         */
         startActivityForResult(new Intent(ProductActivity.this, ProductCreation.class), 1);
     }
+
 }
