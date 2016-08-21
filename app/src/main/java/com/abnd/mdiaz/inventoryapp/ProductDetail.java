@@ -1,5 +1,6 @@
 package com.abnd.mdiaz.inventoryapp;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ProductDetail extends AppCompatActivity {
+public class ProductDetail extends AppCompatActivity implements BasicDialogFragment.BasicDialogListener {
 
     Product currentProduct;
 
@@ -34,9 +35,8 @@ public class ProductDetail extends AppCompatActivity {
     }
 
     public void deleteProduct(View view) {
-        DatabaseHelper dbHelp = new DatabaseHelper(this);
-        dbHelp.deleteProduct(currentProduct.getId());
-        this.finish();
+        DialogFragment newFragment = new BasicDialogFragment();
+        newFragment.show(getFragmentManager(), "delete");
     }
 
     public void orderMore(View view) {
@@ -58,5 +58,17 @@ public class ProductDetail extends AppCompatActivity {
 
     public void backToList(View view) {
         this.finish();
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        DatabaseHelper dbHelp = new DatabaseHelper(this);
+        dbHelp.deleteProduct(currentProduct.getId());
+        this.finish();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        //Nothing here...
     }
 }
