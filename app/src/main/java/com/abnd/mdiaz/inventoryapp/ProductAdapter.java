@@ -61,8 +61,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.proName.setText(currentProduct.getName());
         holder.proSupplier.setText(mContext.getString(R.string.supplied_by) + currentProduct.getSupplier());
         holder.proQuantity.setText(mContext.getString(R.string.quantity) + String.valueOf(currentProduct.getQuantity()));
-        holder.proPrice.setText(mContext.getString(R.string.unit_price) + String.valueOf(currentProduct.getPrice()));
+        holder.proPrice.setText(mContext.getString(R.string.unit_price) + priceFormat(currentProduct.getPrice()));
 
+    }
+
+    public static String priceFormat(float price) {
+        if (price == (long) price)
+            return String.format("%d", (long) price);
+        else
+            return String.format("%s", price);
     }
 
     @Override
@@ -78,19 +85,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             DatabaseHelper dbHelp = new DatabaseHelper(mContext);
             dbHelp.updateQuantity(product.getId(), quantity - 1);
 
+            //I hate this so much... all I want to update is one textview...
             mProductList.clear();
             mProductList.addAll(dbHelp.getAllProducts());
             notifyDataSetChanged();
 
         } else {
-            Toast.makeText(mContext, "There are no items left to sell.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.no_inventory, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void openDetailView(int position) {
         Intent intent = new Intent(mContext, ProductDetail.class);
         Product product = mProductList.get(position);
-        intent.putExtra("product", product);
+        int productId = product.getId();
+        intent.putExtra("id", productId);
         ((Activity) mContext).startActivityForResult(intent, 2);
     }
 

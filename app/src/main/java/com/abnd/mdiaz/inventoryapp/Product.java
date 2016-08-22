@@ -1,11 +1,9 @@
 package com.abnd.mdiaz.inventoryapp;
 
-import java.io.Serializable;
-
 /**
  * Created by neboo on 17-Aug-16.
  */
-public class Product implements Serializable{
+public class Product{
 
     private int mId;
     private String mName;

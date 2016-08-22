@@ -24,4 +24,11 @@
     <string name="delete_product_question">Delete Product?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="dt_add_items">Add Items</string>
+    <string name="dt_remove_items">Remove Items</string>
+    <string name="products">"Products: "</string>
+    <string name="no_inventory">There are no items left to sell.</string>
+    <string name="empty_sub">There must be a value before we can subtract items to the existing quantity</string>
+    <string name="larger_than_current">The value is larger than the current inventory.</string>
+    <string name="empty_add">There must be a value before we can add items to the existing quantity.</string>
 </resources>

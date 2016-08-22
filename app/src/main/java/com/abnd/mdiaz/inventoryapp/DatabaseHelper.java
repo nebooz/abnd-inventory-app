@@ -109,6 +109,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return products;
     }
 
+    public Product getProduct(int Id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor getProduct = db.rawQuery("SELECT * FROM " + DatabaseContract.Products.TABLE_NAME + " WHERE _id = ?", new String[] {Id + ""});
+        Product singleProduct = null;
+
+        if(getProduct.getCount() > 0) {
+
+            getProduct.moveToFirst();
+            int productId = getProduct.getInt(getProduct.getColumnIndex("_id"));
+            String productName = getProduct.getString(getProduct.getColumnIndex("name"));
+            float productPrice = getProduct.getFloat(getProduct.getColumnIndex("price"));
+            int productQuantity = getProduct.getInt(getProduct.getColumnIndex("quantity"));
+            String productSupplier = getProduct.getString(getProduct.getColumnIndex("supplier"));
+            String productImageUri = getProduct.getString(getProduct.getColumnIndex("imageuri"));
+
+            singleProduct = new Product(productId, productName, productPrice, productQuantity, productSupplier, productImageUri);
+        }
+
+        db.close();
+
+        return singleProduct;
+
+    }
+
     public boolean updateQuantity(int id, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
 

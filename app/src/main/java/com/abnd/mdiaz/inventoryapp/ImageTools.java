@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.media.ThumbnailUtils;
 
 import java.io.IOException;
 
@@ -22,6 +21,11 @@ public final class ImageTools {
         String subPath = imagePath.substring(5);
 
         Bitmap inputBitmap = BitmapFactory.decodeFile(subPath);
+        int originalWidth = inputBitmap.getWidth();
+        int originalHeight = inputBitmap.getHeight();
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(inputBitmap, originalWidth/4, originalHeight/4, true);
+
         Bitmap processedBitmap;
 
         ExifInterface ei = null;
@@ -35,17 +39,17 @@ public final class ImageTools {
 
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
-                processedBitmap = rotateImage(inputBitmap, 90);
+                processedBitmap = rotateImage(scaledBitmap, 90);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_180:
-                processedBitmap = rotateImage(inputBitmap, 180);
+                processedBitmap = rotateImage(scaledBitmap, 180);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_270:
-                processedBitmap = rotateImage(inputBitmap, 270);
+                processedBitmap = rotateImage(scaledBitmap, 270);
                 break;
             case ExifInterface.ORIENTATION_NORMAL:
             default:
-                processedBitmap = inputBitmap;
+                processedBitmap = scaledBitmap;
                 break;
         }
 
@@ -56,8 +60,7 @@ public final class ImageTools {
     private static Bitmap rotateImage(Bitmap source, float angle) {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
-        Bitmap tempBitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
                 true);
-        return ThumbnailUtils.extractThumbnail(tempBitmap, 200, 200);
     }
 }

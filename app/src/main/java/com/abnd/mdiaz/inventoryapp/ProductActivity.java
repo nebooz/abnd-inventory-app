@@ -30,15 +30,10 @@ public class ProductActivity extends AppCompatActivity {
 
         dbHelp = new DatabaseHelper(this);
 
-        dbHelp.deleteDatabase();
+        //dbHelp.deleteDatabase();
 
         //Funny how the database was not regenerated everytime... delete everything! (while testing)
         //dbHelp.deleteAllData();
-
-        //dbHelp.addProduct(1, "Bulbasaur", 9.99f, 10, "Supplier 1", R.drawable.bulbasaur);
-        //dbHelp.addProduct(2, "Charmander", 19.99f, 20, "Supplier 2", R.drawable.charmander);
-        //dbHelp.addProduct(3, "Jigglypuff", 29.99f, 20, "Supplier 3", R.drawable.jigglypuff);
-        //dbHelp.addProduct(4, "Pikachu", 69.99f, 20, "Supplier 4", R.drawable.pikachu);
 
         mProductList = dbHelp.getAllProducts();
 
@@ -72,7 +67,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     public void updateProductCount() {
-        productCountTextView.setText("Products: " + Integer.toString(mProductList.size()));
+        productCountTextView.setText(getString(R.string.products) + Integer.toString(mProductList.size()));
     }
 
     public void checkEmptyList() {
